@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "Result",
+  "properties": { 
+    "Result": { 
+      "$ref": "#/definitions/Result" 
+    } 
+  },
+  "definitions": {
+    "Result": {
+      "$id": "#/properties/Result",
+      "type": "object",
+      "required": [
+        "studentId",
+        "examinationId",
+        "subjects",
+        "totalScore",
+        "grade"
+      ],
+      "uniqueIndexFields": [
+        "studentId",
+        "examinationId"
+      ],
+      "properties": {
+        "resultId": {
+          "type": "integer",
+          "description": "Unique identifier for the result"
+        },
+        "studentId": {
+          "type": "integer",
+          "description": "Unique identifier for the student"
+        },
+        "examinationId": {
+          "type": "integer",
+          "description": "Unique identifier for the examination"
+        },
+        "subjects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "subjectName": {
+                "type": "string",
+                "description": "Name of the subject"
+              },
+              "score": {
+                "type": "number",
+                "description": "Score obtained in the subject"
+              },
+              "grade": {
+                "type": "string",
+                "description": "Grade obtained in the subject"
+              }
+            },
+            "required": [
+              "subjectName",
+              "score",
+              "grade"
+            ]
+          },
+          "minItems": 1,
+          "description": "List of subjects and corresponding scores and grades"
+        },
+        "totalScore": {
+          "type": "number",
+          "description": "Total score obtained across all subjects"
+        },
+        "grade": {
+          "type": "string",
+          "description": "Final grade based on the total score"
+        }
+      }
+    }
+  },
+  "_osConfig": {
+    "privateFields": [
+      "$.studentId",
+      "$.totalScore"
+    ],
+    "internalFields": [],
+    "systemFields": [
+      "osCreatedAt",
+      "osUpdatedAt",
+      "osCreatedBy",
+      "osUpdatedBy"
+    ],
+    "roles": [
+      "admin",
+      "teacher"
+    ],
+    "inviteRoles": [
+      "admin",
+      "teacher"
+    ],
+    "ownershipAttributes": [
+      {
+        "userId": "/studentId"
+      }
+    ],
+    "attestationPolicies": [
+      {
+        "name": "resultVerification",
+        "additionalInput": {
+          "verificationCode": {
+            "type": "string"
+          }
+        },
+        "attestationProperties": {
+          "studentId": "$.studentId",
+          "examinationId": "$.examinationId",
+          "subjects": "$.subjects",
+          "totalScore": "$.totalScore",
+          "grade": "$.grade"
+        },
+        "type": "MANUAL",
+        "attestorPlugin": "did:internal:ClaimPluginActor?entity=Teacher",
+        "conditions": "(ATTESTOR#$.examinationId#.equals(REQUESTER#$.examinationId#))"
+      }
+    ]
+  }
+}

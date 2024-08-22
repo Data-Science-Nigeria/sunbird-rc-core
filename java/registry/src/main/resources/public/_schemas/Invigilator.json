@@ -1,0 +1,114 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "Invigilator",
+  "properties": {
+    "Invigilator": {
+      "$ref": "#/definitions/Invigilator"
+    }
+  },
+  "definitions": {
+    "Invigilator": {
+      "$id": "#/properties/Invigilator",
+      "type": "object",
+      "required": [
+        "invigilatorId",
+        "name",
+        "email",
+        "phoneNumber",
+        "schoolId",
+        "assignedExaminations"
+      ],
+      "uniqueIndexFields": [
+        "invigilatorId",
+        "email"
+      ],
+      "properties": {
+        "invigilatorId": {
+          "type": "string",
+          "description": "Unique identifier for the invigilator"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the invigilator"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the invigilator"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Phone number of the invigilator"
+        },
+        "schoolId": {
+          "type": "string",
+          "description": "Unique identifier for the school where the invigilator is employed"
+        },
+        "assignedExaminations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "examinationId": {
+                "type": "string",
+                "description": "Unique identifier for the assigned examination"
+              },
+              "examinationDate": {
+                "type": "string",
+                "format": "date",
+                "description": "Date of the assigned examination"
+              }
+            },
+            "required": [
+              "examinationId",
+              "examinationDate"
+            ]
+          },
+          "minItems": 1,
+          "description": "List of examinations assigned to the invigilator"
+        }
+      }
+    }
+  },
+  "_osConfig": {
+    "privateFields": [
+      "$.email",
+      "$.phoneNumber"
+    ],
+    "internalFields": [],
+    "systemFields": [
+      "osCreatedAt",
+      "osUpdatedAt",
+      "osCreatedBy",
+      "osUpdatedBy"
+    ],
+    "roles": [
+      "admin"
+    ],
+    "inviteRoles": [
+      "admin"
+    ],
+    "ownershipAttributes": [
+      {
+        "userId": "/invigilatorId"
+      }
+    ],
+    "attestationPolicies": [
+      {
+        "name": "invigilatorAssignmentVerification",
+        "additionalInput": {
+          "verificationCode": {
+            "type": "string"
+          }
+        },
+        "attestationProperties": {
+          "invigilatorId": "$.invigilatorId",
+          "assignedExaminations": "$.assignedExaminations"
+        },
+        "type": "MANUAL",
+        "attestorPlugin": "did:internal:ClaimPluginActor?entity=SchoolAdmin",
+        "conditions": "(ATTESTOR#$.schoolId#.equals(REQUESTER#$.schoolId#))"
+      }
+    ]
+  }
+}

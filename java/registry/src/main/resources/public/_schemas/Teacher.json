@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "Teacher",
+  "properties": {
+    "Teacher": {
+      "$ref": "#/definitions/Teacher"
+    }
+  },
+  "definitions": {
+    "Teacher": {
+      "$id": "#/properties/Teacher",
+      "type": "object",
+      "required": [
+        "teacherId",
+        "name",
+        "phoneNumber",
+        "email",
+        "qualification",
+        "schoolId",
+        "dob",
+        "subjectSpecialization",
+        "gender"
+      ],
+      "uniqueIndexFields": [
+        "teacherId",
+        "phoneNumber",
+        "email"
+      ],
+      "properties": {
+        "teacherId": {
+          "type": "integer",
+          "description": "Unique identifier for the teacher"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the teacher"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Phone number of the teacher"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the teacher"
+        },
+        "qualification": {
+          "type": "string",
+          "description": "Academic qualifications of the teacher"
+        },
+        "dob": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of birth of the teacher"
+        },
+        "subjectSpecialization": {
+          "type": "string",
+          "description": "Subject specialization of the teacher"
+        },
+        "schoolId": {
+          "type": "integer",
+          "description": "Unique Id of the school where the teacher is employed"
+        },
+        "gender": {
+          "type": "string",
+          "enum": ["Male", "Female", "Other"],
+          "description": "Gender of the teacher"
+        },
+        "passwordToken": {
+          "type": "string",
+          "description": "Password token for the teacher's account"
+        }
+      }
+    }
+  },
+  "_osConfig": {
+    "privateFields": [
+      "$.phoneNumber",
+      "$.email"
+    ],
+    "internalFields": [
+      "$.passwordToken"
+    ],
+    "systemFields": [
+      "osCreatedAt",
+      "osUpdatedAt",
+      "osCreatedBy",
+      "osUpdatedBy"
+    ],
+    "roles": [
+      "admin",
+      "schoolAdmin"
+    ],
+    "inviteRoles": [
+      "admin",
+      "schoolAdmin"
+    ],
+    "ownershipAttributes": [
+      {
+        "email": "/email",
+        "mobile": "/phoneNumber",
+        "userId": "/teacherId",
+        "password": "/passwordToken"
+      }
+    ],
+    "attestationPolicies": [
+      {
+        "name": "teacherQualificationAttest",
+        "additionalInput": {
+          "certificationId": {
+            "type": "string"
+          }
+        },
+        "attestationProperties": {
+          "name": "$.name",
+          "qualification": "$.qualification",
+          "subjectSpecialization": "$.subjectSpecialization"
+        },
+        "type": "MANUAL",
+        "attestorPlugin": "did:internal:ClaimPluginActor?entity=SchoolAdmin",
+        "conditions": "(ATTESTOR#$.schoolId#.equals(REQUESTER#$.schoolId#))"
+      }
+    ],
+    "certificateTemplates": {
+      "svg": "https://example.com/teacher_certificate_template.svg"
+    }
+  }
+}

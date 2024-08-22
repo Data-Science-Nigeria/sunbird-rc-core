@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "Class",
+  "properties": {
+    "Class": {
+      "$ref": "#/definitions/Class"
+    }
+  },
+  "definitions": {
+    "Class": {
+      "$id": "#/properties/Class",
+      "type": "object",
+      "required": [
+        "classId",
+        "className",
+        "teacherId",
+        "students"
+      ],
+      "uniqueIndexFields": [
+        "classId"
+      ],
+      "properties": {
+        "classId": {
+          "type": "string",
+          "description": "Unique identifier for the class"
+        },
+        "className": {
+          "type": "string",
+          "description": "Name or designation of the class"
+        },
+        "teacherId": {
+          "type": "string",
+          "description": "Unique identifier for the teacher responsible for the class"
+        },
+        "students": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "studentId": {
+                "type": "string",
+                "description": "Unique identifier for the student"
+              }
+            },
+            "required": [
+              "studentId"
+            ]
+          },
+          "minItems": 1,
+          "description": "List of students enrolled in the class"
+        },
+        "subjectSpecialization": {
+          "type": "string",
+          "description": "Subject specialization or focus area of the class"
+        },
+        "academicYear": {
+          "type": "string",
+          "description": "Academic year for the class, e.g., '2024-2025'"
+        }
+      }
+    }
+  },
+  "_osConfig": {
+    "privateFields": [
+      "$.teacherId",
+      "$.students"
+    ],
+    "internalFields": [],
+    "systemFields": [
+      "osCreatedAt",
+      "osUpdatedAt",
+      "osCreatedBy",
+      "osUpdatedBy"
+    ],
+    "roles": [
+      "admin",
+      "schoolAdmin"
+    ],
+    "inviteRoles": [
+      "admin",
+      "schoolAdmin"
+    ],
+    "ownershipAttributes": [
+      {
+        "userId": "/classId"
+      }
+    ],
+    "attestationPolicies": [
+      {
+        "name": "classEnrollmentVerification",
+        "additionalInput": {
+          "verificationCode": {
+            "type": "string"
+          }
+        },
+        "attestationProperties": {
+          "classId": "$.classId",
+          "teacherId": "$.teacherId",
+          "students": "$.students"
+        },
+        "type": "MANUAL",
+        "attestorPlugin": "did:internal:ClaimPluginActor?entity=SchoolAdmin",
+        "conditions": "(ATTESTOR#$.teacherId#.equals(REQUESTER#$.teacherId#))"
+      }
+    ]
+  }
+}

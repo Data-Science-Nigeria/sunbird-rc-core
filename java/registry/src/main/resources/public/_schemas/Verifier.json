@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "Verifier",
+  "properties": {
+    "Verifier": {
+      "$ref": "#/definitions/Verifier"
+    }
+  },
+  "definitions": {
+    "Verifier": {
+      "$id": "#/properties/Verifier",
+      "type": "object",
+      "required": [
+        "verifierId",
+        "name",
+        "email",
+        "school",
+        "verifiedResults"
+      ],
+      "uniqueIndexFields": [
+        "verifierId",
+        "email"
+      ],
+      "properties": {
+        "verifierId": {
+          "type": "integer",
+          "description": "Unique identifier for the verifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the verifier"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the verifier"
+        },
+        "school": {
+          "type": "string",
+          "description": "Name of the school where the verifier is employed"
+        },
+        "verifiedResults": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "resultId": {
+                "type": "integer",
+                "description": "Unique identifier for the verified result"
+              },
+              "verificationDate": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Date and time when the result was verified"
+              },
+              "verificationStatus": {
+                "type": "string",
+                "enum": ["Verified", "Rejected"],
+                "description": "Status of the verification"
+              },
+              "comments": {
+                "type": "string",
+                "description": "Optional comments regarding the verification"
+              }
+            },
+            "required": [
+              "resultId",
+              "verificationDate",
+              "verificationStatus"
+            ]
+          },
+          "minItems": 1,
+          "description": "List of results verified by the verifier"
+        }
+      }
+    }
+  },
+  "_osConfig": {
+    "privateFields": [
+      "$.email"
+    ],
+    "internalFields": [],
+    "systemFields": [
+      "osCreatedAt",
+      "osUpdatedAt",
+      "osCreatedBy",
+      "osUpdatedBy"
+    ],
+    "roles": [
+      "anonymous"
+    ],
+    "inviteRoles": [
+      "anonymous"
+    ],
+    "ownershipAttributes": [
+      {
+        "email": "/email",
+        "userId": "/verifierId"
+      }
+    ],
+    "attestationPolicies": [
+      {
+        "name": "resultVerificationAttestation",
+        "additionalInput": {
+          "verificationCode": {
+            "type": "string"
+          }
+        },
+        "attestationProperties": {
+          "verifierId": "$.verifierId",
+          "verifiedResults": "$.verifiedResults"
+        },
+        "type": "MANUAL",
+        "attestorPlugin": "did:internal:ClaimPluginActor?entity=SchoolAdmin",
+        "conditions": "(ATTESTOR#$.school#.equals(REQUESTER#$.school#))"
+      }
+    ],
+    "certificateTemplates": {
+      "svg": "https://example.com/verifier_certificate_template.svg"
+    }
+  }
+}

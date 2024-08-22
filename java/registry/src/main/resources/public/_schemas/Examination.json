@@ -1,0 +1,135 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "Examination",
+  "properties": {
+    "Examination": {
+      "$ref": "#/definitions/Examination"
+    }
+  },
+  "definitions": {
+    "Examination": {
+      "$id": "#/properties/Examination",
+      "type": "object",
+      "required": [
+        "examinationId",
+        "examinationName",
+        "date",
+        "schoolId",
+        "subjects",
+        "invigilators"
+      ],
+      "uniqueIndexFields": [
+        "examinationId"
+      ],
+      "properties": {
+        "examinationId": {
+          "type": "integer",
+          "description": "Unique identifier for the examination"
+        },
+        "examinationName": {
+          "type": "string",
+          "description": "Name of the examination"
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of the examination"
+        },
+        "schoolId": {
+          "type": "integer",
+          "description": "Unique Id of the school where the examination is conducted"
+        },
+        "subjects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "subjectId": {
+                "type": "integer",
+                "description": "Unique identifier for the subject"
+              },
+              "subjectName": {
+                "type": "string",
+                "description": "Name of the subject"
+              }
+            },
+            "required": [
+              "subjectId",
+              "subjectName"
+            ]
+          },
+          "minItems": 1,
+          "description": "List of subjects included in the examination"
+        },
+        "invigilators": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "invigilatorId": {
+                "type": "integer",
+                "description": "Unique identifier for the invigilator"
+              },
+              "invigilatorName": {
+                "type": "string",
+                "description": "Name of the invigilator"
+              }
+            },
+            "required": [
+              "invigilatorId",
+              "invigilatorName"
+            ]
+          },
+          "minItems": 1,
+          "description": "List of invigilators overseeing the examination"
+        }
+      }
+    }
+  },
+  "_osConfig": {
+    "privateFields": [
+      "$.examinationId"
+    ],
+    "internalFields": [
+      "$.schoolId"
+    ],
+    "systemFields": [
+      "osCreatedAt",
+      "osUpdatedAt",
+      "osCreatedBy",
+      "osUpdatedBy"
+    ],
+    "roles": [
+      "admin",
+      "examCoordinator"
+    ],
+    "inviteRoles": [
+      "admin",
+      "examCoordinator"
+    ],
+    "ownershipAttributes": [
+      {
+        "userId": "/examinationId"
+      }
+    ],
+    "attestationPolicies": [
+      {
+        "name": "examAttestation",
+        "additionalInput": {
+          "examCode": {
+            "type": "string"
+          }
+        },
+        "attestationProperties": {
+          "examinationName": "$.examinationName",
+          "date": "$.date",
+          "subjects": "$.subjects"
+        },
+        "type": "MANUAL",
+        "attestorPlugin": "did:internal:ClaimPluginActor?entity=Teacher",
+        "conditions": "(ATTESTOR#$.schoolId#.equals(REQUESTER#$.schoolId#))"
+      }
+    ]
+  }
+}

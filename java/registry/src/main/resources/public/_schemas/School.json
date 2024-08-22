@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "School",
+  "properties": {
+    "School": {
+      "$ref": "#/definitions/School"
+    }
+  },
+  "definitions": {
+    "School": {
+      "$id": "#/properties/School",
+      "type": "object",
+      "required": [
+        "schoolId",
+        "schoolName",
+        "address",
+        "contact",
+        "principalName",
+        "establishedYear",
+        "affiliationCode"
+      ],
+      "uniqueIndexFields": [
+        "schoolId",
+        "affiliationCode"
+      ],
+      "properties": {
+        "schoolId": {
+          "type": "integer",
+          "description": "Unique identifier for the school"
+        },
+        "schoolName": {
+          "type": "string",
+          "description": "Name of the school"
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "street": {
+              "type": "string",
+              "description": "Street address of the school"
+            },
+            "city": {
+              "type": "string",
+              "description": "City where the school is located"
+            },
+            "state": {
+              "type": "string",
+              "description": "State where the school is located"
+            },
+            "postalCode": {
+              "type": "string",
+              "description": "Postal code of the school's location"
+            },
+            "country": {
+              "type": "string",
+              "description": "Country where the school is located"
+            }
+          },
+          "required": [
+            "street",
+            "city",
+            "state",
+            "postalCode",
+            "country"
+          ]
+        },
+        "contact": {
+          "type": "object",
+          "properties": {
+            "phoneNumber": {
+              "type": "string",
+              "description": "Contact phone number for the school"
+            },
+            "email": {
+              "type": "string",
+              "description": "Contact email address for the school"
+            }
+          },
+          "required": [
+            "phoneNumber",
+            "email"
+          ]
+        },
+        "principalName": {
+          "type": "string",
+          "description": "Name of the principal or head of the school"
+        },
+        "establishedYear": {
+          "type": "integer",
+          "description": "Year the school was established"
+        },
+        "affiliationCode": {
+          "type": "string",
+          "description": "Affiliation code or identifier for the school"
+        }
+      }
+    }
+  },
+  "_osConfig": {
+    "privateFields": [
+      "$.affiliationCode"
+    ],
+    "systemFields": [
+      "osCreatedAt",
+      "osUpdatedAt",
+      "osCreatedBy",
+      "osUpdatedBy"
+    ],
+    "roles": [
+      "admin",
+      "schoolAdmin"
+    ],
+    "inviteRoles": [
+      "admin",
+      "schoolAdmin"
+    ],
+    "ownershipAttributes": [
+      {
+        "userId": "/schoolId",
+        "email": "/contact/email"
+      }
+    ],
+    "attestationPolicies": [
+      {
+        "name": "schoolVerification",
+        "additionalInput": {
+          "verificationCode": {
+            "type": "string"
+          }
+        },
+        "attestationProperties": {
+          "schoolName": "$.schoolName",
+          "address": "$.address"
+        },
+        "type": "MANUAL",
+        "conditions": "(ATTESTOR#$.schoolId#.equals(REQUESTER#$.schoolId#))"
+      }
+    ]
+  }
+}

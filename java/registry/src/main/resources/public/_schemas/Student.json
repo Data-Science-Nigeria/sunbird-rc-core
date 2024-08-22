@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "Student",
+  "properties": { "Student": { "$ref": "#/definitions/Student" } },
+  "definitions": {
+    "Student": {
+      "$id": "#/properties/Student",
+      "type": "object",
+      "required": ["studentId", "name", "phoneNumber", "email", "school", "dob", "guardianEmail", "ninId", "gender"],
+      "uniqueIndexFields": ["studentId", "phoneNumber"],
+      "properties": {
+        "studentId": {
+          "type": "integer",
+          "description": "Unique identifier for the student"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the student"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Phone number of the student"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the student"
+        },
+        "dob": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of birth of the student"
+        },
+        "guardianEmail": {
+          "type": "string",
+          "description": "Email address of the student's guardian"
+        },
+        "ninId": {
+          "type": "integer",
+          "description": "National Identification Number of the student"
+        },
+        "school": {
+          "type": "string",
+          "description": "Name of the school the student is attending"
+        },
+        "gender": {
+          "type": "string",
+          "enum": ["Male", "Female", "Other"],
+          "description": "Gender of the student"
+        },
+        "passwordToken": {
+          "type": "string",
+          "description": "Password token for the student's account"
+        }
+      }
+    }
+  },
+  "_osConfig": {
+    "privateFields": ["$.phoneNumber", "$.ninId"],
+    "internalFields": ["$.passwordToken"],
+    "systemFields": [
+      "osCreatedAt",
+      "osUpdatedAt",
+      "osCreatedBy",
+      "osUpdatedBy"
+    ],
+    "roles": ["admin", "schoolAdmin"],
+    "inviteRoles": ["admin", "schoolAdmin"],
+    "ownershipAttributes": [
+      {
+        "email": "/email",
+        "mobile": "/phoneNumber",
+        "userId": "/studentId",
+        "password": "/passwordToken"
+      }
+    ],
+    "attestationPolicies": [
+      {
+        "name": "studentInstituteAttest",
+        "additionalInput": {
+          "enrollmentNumber": {"type": "string"}
+        },
+        "attestationProperties": {
+          "name": "$.name",
+          "school": "$.school"
+        },
+        "type": "MANUAL",
+        "attestorPlugin": "did:internal:ClaimPluginActor?entity=SchoolAdmin",
+        "conditions": "(ATTESTOR#$.school#.equals(REQUESTER#$.school#))"
+      }
+    ],
+    "certificateTemplates": {
+      "svg": "https://example.com/student_certificate_template.svg"
+    }
+  }
+}
