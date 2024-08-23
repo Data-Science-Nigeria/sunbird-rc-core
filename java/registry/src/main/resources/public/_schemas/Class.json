@@ -30,7 +30,7 @@
           "description": "Name or designation of the class"
         },
         "teacherId": {
-          "type": "string",
+          "type": "integer",
           "description": "Unique identifier for the teacher responsible for the class"
         },
         "students": {
@@ -39,7 +39,7 @@
             "type": "object",
             "properties": {
               "studentId": {
-                "type": "string",
+                "type": "integer",
                 "description": "Unique identifier for the student"
               }
             },

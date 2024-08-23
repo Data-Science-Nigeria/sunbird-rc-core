@@ -87,7 +87,7 @@
           "description": "Name of the principal or head of the school"
         },
         "establishedYear": {
-          "type": "integer",
+          "type": "string",
           "description": "Year the school was established"
         },
         "affiliationCode": {
