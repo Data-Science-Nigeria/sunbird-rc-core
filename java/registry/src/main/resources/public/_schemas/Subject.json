@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "Subject",
+  "properties": {
+    "Subject": {
+      "$ref": "#/definitions/Subject"
+    }
+  },
+  "definitions": {
+    "Subject": {
+      "$id": "#/properties/Subject",
+      "type": "object",
+      "required": [
+        "subjectId",
+        "subjectName",
+        "subjectCode",
+        "teacherId"
+      ],
+      "uniqueIndexFields": [
+        "subjectId",
+        "subjectCode"
+      ],
+      "properties": {
+        "subjectId": {
+          "type": "integer",
+          "description": "Unique identifier for the subject"
+        },
+        "subjectName": {
+          "type": "string",
+          "description": "Name of the subject"
+        },
+        "subjectCode": {
+          "type": "string",
+          "description": "Code representing the subject, e.g., 'MATH101'"
+        },
+        "teacherId": {
+          "type": "integer",
+          "description": "Unique identifier for the teacher responsible for the subject"
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional description of the subject"
+        },
+        "credits": {
+          "type": "integer",
+          "description": "Number of credits the subject is worth"
+        },
+        "academicYear": {
+          "type": "string",
+          "description": "Academic year for the subject, e.g., '2024-2025'"
+        }
+      }
+    }
+  },
+  "_osConfig": {
+    "privateFields": [
+      "$.teacherId"
+    ],
+    "internalFields": [],
+    "systemFields": [
+      "osCreatedAt",
+      "osUpdatedAt",
+      "osCreatedBy",
+      "osUpdatedBy"
+    ],
+    "roles": [
+      "admin",
+      "schoolAdmin"
+    ],
+    "inviteRoles": [
+      "admin",
+      "schoolAdmin"
+    ],
+    "ownershipAttributes": [
+      {
+        "userId": "/subjectId"
+      }
+    ],
+    "attestationPolicies": [
+      {
+        "name": "subjectVerification",
+        "additionalInput": {
+          "verificationCode": {
+            "type": "string"
+          }
+        },
+        "attestationProperties": {
+          "subjectId": "$.subjectId",
+          "subjectName": "$.subjectName",
+          "teacherId": "$.teacherId"
+        },
+        "type": "MANUAL",
+        "attestorPlugin": "did:internal:ClaimPluginActor?entity=SchoolAdmin",
+        "conditions": "(ATTESTOR#$.teacherId#.equals(REQUESTER#$.teacherId#))"
+      }
+    ]
+  }
+}
