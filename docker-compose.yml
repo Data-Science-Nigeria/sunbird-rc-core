@@ -4,8 +4,8 @@ services:
   es:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.8.23
 # Uncomment below lines and create es-data directory to persist elastic search data
-#    volumes:
-#      - ./${ES_DIR-es-data}:/usr/share/elasticsearch/data
+    volumes:
+      - ./${ES_DIR-es-data}:/usr/share/elasticsearch/data
     environment:
       - discovery.type=single-node
       - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
@@ -303,7 +303,7 @@ services:
       - MINIO_ROOT_PASSWORD=12345678
     command: server --address 0.0.0.0:9000 --console-address 0.0.0.0:9001 /data
     ports:
-      - '9000:9000'
+      - '9003:9000'
       - '9001:9001'
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:9000/minio/health/live']
@@ -386,28 +386,28 @@ services:
       interval: 30s
       timeout: 10s
       retries: 10
-  nginx:
-    image: ghcr.io/sunbird-rc/sunbird-rc-nginx
-    ports:
-      - '80:80'
-    depends_on:
-      registry:
-        condition: service_healthy
-      context-proxy-service:
-        condition: service_started
-      public-key-service:
-        condition: service_started
-      keycloak:
-        condition: service_started
-      claim-ms:
-        condition: service_started
-      file-storage:
-        condition: service_started
-    healthcheck:
-      test: ['CMD', 'curl', '-f', 'localhost:80']
-      interval: 30s
-      timeout: 10s
-      retries: 10
+  #nginx:
+  #  image: ghcr.io/sunbird-rc/sunbird-rc-nginx
+  #  ports:
+  #    - '80:80'
+  #  depends_on:
+  #    registry:
+  #      condition: service_healthy
+  #    context-proxy-service:
+  #      condition: service_started
+  #    public-key-service:
+  #      condition: service_started
+  #    keycloak:
+  #      condition: service_started
+  #    claim-ms:
+  #      condition: service_started
+  #    file-storage:
+  #      condition: service_started
+  #  healthcheck:
+  #    test: ['CMD', 'curl', '-f', 'localhost:80']
+  #    interval: 30s
+  #    timeout: 10s
+  #    retries: 10
   metrics:
     image: ghcr.io/sunbird-rc/sunbird-rc-metrics
     environment:
