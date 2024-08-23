@@ -58,22 +58,22 @@ services:
       SIGNING_ALGORITHM: "Ed25519Signature2020"
       JWKS_URI: 
       ENABLE_AUTH: "false"
-      WEB_DID_BASE_URL: 
+      WEB_DID_BASE_URL: "https://behordeun.github.io/dpi"
     healthcheck:
       test:
         [ "CMD-SHELL", "curl -f http://localhost:3332/health || exit 1" ]
       interval: 10s
       timeout: 5s
       retries: 5
-    networks:
-      rcw-test:
-      default:
+    #networks:
+    #  rcw-test:
+    #  default:
 
 # rcw-test is an external network created for other upstream services dependent on identity service
 # to be able to access it
-networks:
-  rcw-test:
-    external: true
+#networks:
+#  rcw-test:
+#    external: true
 
 volumes:
   data:

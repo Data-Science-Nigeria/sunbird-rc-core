@@ -7,7 +7,7 @@
     "Student": {
       "$id": "#/properties/Student",
       "type": "object",
-      "required": ["studentId", "name", "phoneNumber", "email", "school", "dob", "guardianEmail", "ninId", "gender"],
+      "required": ["studentId", "name", "phoneNumber", "email", "schoolId", "dob", "guardianEmail", "ninId", "gender"],
       "uniqueIndexFields": ["studentId", "phoneNumber"],
       "properties": {
         "studentId": {
@@ -39,9 +39,9 @@
           "type": "integer",
           "description": "National Identification Number of the student"
         },
-        "school": {
-          "type": "string",
-          "description": "Name of the school the student is attending"
+        "schoolId": {
+          "type": "integer",
+          "description": "Unique identifier for the school the student is enrolled in"
         },
         "gender": {
           "type": "string",
