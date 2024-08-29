@@ -787,8 +787,8 @@
     {
       "id": "cd59dfa9-6289-40f9-b5c1-d76b1565501d",
       "clientId": "admin-api",
-      "rootUrl": "https://cert-verse.com/auth/realms/Sunbird-rc/account/",
-      "adminUrl": "https://cert-verse.com/auth/realms/Sunbird-rc/account/",
+      "rootUrl": "https://certi-verse.com/auth/realms/Sunbird-rc/account/",
+      "adminUrl": "https://certi-verse.com/auth/realms/Sunbird-rc/account/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
@@ -796,15 +796,15 @@
       "secret": "**********",
       "redirectUris": [
         "http://localhost:4202/*",
-        "https://cert-verse.com/auth",
-        "https://cert-verse.com/auth/realms/Sunbird-rc/account/*",
+        "https://certi-verse.com/auth",
+        "https://certi-verse.com/auth/realms/Sunbird-rc/account/*",
         "http://localhost:4200/*",
         "http://ndear.xiv.in/*",
         "https://oauth.pstmn.io/v1/callback"
       ],
       "webOrigins": [
         "http://localhost:4202/*",
-        "https://cert-verse.com/auth",
+        "https://certi-verse.com/auth",
         "http://localhost:4200/*"
       ],
       "notBefore": 0,
@@ -1070,7 +1070,7 @@
     {
       "id": "ac354645-3c3c-4592-879b-20a2f4f48302",
       "clientId": "certificate-login",
-      "rootUrl": "https://cert-verse.com/certificate/",
+      "rootUrl": "https://certi-verse.com/certificate/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
@@ -1078,15 +1078,15 @@
       "secret": "**********",
       "redirectUris": [
         "http://192.168.0.103:3000/*",
-        "https://cert-verse.com/*",
+        "https://certi-verse.com/*",
         "http://localhost:3000/*",
         "*",
-        "https://cert-verse.com/certificate/",
+        "https://certi-verse.com/certificate/",
         "http://localhost/certificate/*",
-        "https://cert-verse.com/certificate/*"
+        "https://certi-verse.com/certificate/*"
       ],
       "webOrigins": [
-        "https://cert-verse.com/auth",
+        "https://certi-verse.com/auth",
         "*",
         "http://localhost",
         "http://192.168.0.103:3000",
@@ -1457,7 +1457,7 @@
       "clientAuthenticatorType": "client-secret",
       "secret": "**********",
       "redirectUris": [
-        "https://cert-verse.com",
+        "https://certi-verse.com",
         "https://oauth.pstmn.io/v1/callback"
       ],
       "webOrigins": [],
@@ -3002,7 +3002,7 @@
     "oauth2DevicePollingInterval": "600",
     "clientSessionIdleTimeout": "600",
     "clientSessionMaxLifespan": "600",
-    "frontendUrl": "https://cert-verse.com/auth",
+    "frontendUrl": "https://certi-verse.com/auth",
     "clientOfflineSessionIdleTimeout": "0",
     "cibaInterval": "5"
   },
