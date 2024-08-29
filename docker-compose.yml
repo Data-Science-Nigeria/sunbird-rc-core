@@ -161,6 +161,7 @@ services:
       - KEYCLOAK_USER=${KEYCLOAK_ADMIN_USER-admin}
       - KEYCLOAK_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD-admin}
       - KEYCLOAK_IMPORT=/opt/jboss/keycloak/imports/realm-export.json
+      - KEYCLOAK_PORTAL_TITLE=Certiverse
       - PROXY_ADDRESS_FORWARDING=true
     healthcheck:
       test: ['CMD-SHELL', 'curl -f http://localhost:9990/ || exit 1']
@@ -384,28 +385,28 @@ services:
       interval: 30s
       timeout: 10s
       retries: 10
-  #nginx:
-  #  image: ghcr.io/sunbird-rc/sunbird-rc-nginx
-  #  ports:
-  #    - '80:80'
-  #  depends_on:
-  #    registry:
-  #      condition: service_healthy
-  #    context-proxy-service:
-  #      condition: service_started
-  #    public-key-service:
-  #      condition: service_started
-  #    keycloak:
-  #      condition: service_started
-  #    claim-ms:
-  #      condition: service_started
-  #    file-storage:
-  #      condition: service_started
-  #  healthcheck:
-  #    test: ['CMD', 'curl', '-f', 'localhost:80']
-  #    interval: 30s
-  #    timeout: 10s
-  #    retries: 10
+  nginx:
+    image: ghcr.io/sunbird-rc/sunbird-rc-nginx
+    ports:
+      - '80:80'
+    depends_on:
+      registry:
+        condition: service_healthy
+      context-proxy-service:
+        condition: service_started
+      public-key-service:
+        condition: service_started
+      keycloak:
+        condition: service_started
+      claim-ms:
+        condition: service_started
+      file-storage:
+        condition: service_started
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'localhost:80']
+      interval: 30s
+      timeout: 10s
+      retries: 10
   metrics:
     image: ghcr.io/sunbird-rc/sunbird-rc-metrics
     environment:
