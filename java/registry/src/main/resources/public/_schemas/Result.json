@@ -2,19 +2,19 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "properties": {
-    "MarkSheet": {
-      "$ref": "#/definitions/MarkSheet"
+    "Result": {
+      "$ref": "#/definitions/Result"
     }
   },
   "required": [
-    "MarkSheet"
+    "Result"
   ],
-  "title": "MarkSheet",
+  "title": "Result",
   "definitions": {
-    "MarkSheet": {
-      "$id": "#/properties/MarkSheet",
+    "Result": {
+      "$id": "#/properties/Result",
       "type": "object",
-      "title": "The MarkSheet Schema",
+      "title": "The Result Schema",
       "required": [
         "name",
         "contact",
@@ -147,7 +147,7 @@
     "credentialTemplate": {
       "@context": [
         "https://www.w3.org/2018/credentials/v1",
-        "https://gist.githubusercontent.com/arjunnemical/5314ecd020a10d04e48f6d19d70e70f1/raw/8e3b6c2cf3c26d5903d79f9a609db7658d9ff069/MarkSheet.json"
+        "https://gist.githubusercontent.com/arjunnemical/5314ecd020a10d04e48f6d19d70e70f1/raw/8e3b6c2cf3c26d5903d79f9a609db7658d9ff069/Result.json"
       ],
       "type": [
         "VerifiableCredential"
@@ -185,7 +185,7 @@
       "issuer": "did:web:sunbirdrc.dev/vc/skill"
     },
     "certificateTemplates": {
-      "html": "minio://Issuer/1-15b69858-c36a-4112-b0ab-9cec4e009925/templates/documents/256d0f4a-ab70-437f-a58f-4f503b446ab6-MarkSheet.svg"
+      "html": "minio://Issuer/1-15b69858-c36a-4112-b0ab-9cec4e009925/templates/documents/256d0f4a-ab70-437f-a58f-4f503b446ab6-Result.svg"
     }
   }
 }

@@ -134,7 +134,7 @@
       "type": "Student",
       "name": "{{name}}",
       "gender": "{{gender}}",
-      "institute": "{{institute}}",
+      "school": "{{school}}",
       "academicYear": "{{academicYear}}",
       "rollNo": "{{rollNo}}",
       "english_language": "{{english_language}}",
