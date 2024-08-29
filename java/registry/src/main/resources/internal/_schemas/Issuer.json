@@ -16,21 +16,82 @@
       "type": "object",
       "title": "Issuer",
       "required": [
-        "did"
+
       ],
-      "additionalProperties": false,
       "properties": {
-        "did": {
-          "type": "string"
-        },
         "name": {
-          "type": "string"
+          "type": "string",
+          "title": "Issuer/Organisation Name"
         },
-        "entityOsid": {
-          "type": "string"
+        "sectorType": {
+          "type": "string",
+          "enum": [
+            "Education",
+            "Sports",
+            "Gaming"
+          ],
+          "title": "Sector Type"
         },
-        "entityName": {
-          "type": "string"
+        "logoUrl": {
+          "type": "string",
+          "title": "Logo url"
+        },
+        "websiteUrl": {
+          "type": "string",
+          "title": "Website url"
+        },
+        "accountDetails": {
+          "$ref": "#/definitions/AccountDetails"
+        },
+        "contactDetails": {
+          "$ref": "#/definitions/ContactDetails"
+        },
+        "schemas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "documentType": {
+                "type": "string"
+              },
+              "schemaOsid": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "ContactDetails": {
+      "type": "object",
+      "description": "Enter administrator details",
+      "title": "Contact Details",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Contact Name"
+        },
+        "mobile": {
+          "type": "string",
+          "title": "Mobile number"
+        },
+        "email": {
+          "type": "string",
+          "title": "Email ID"
+        }
+      }
+    },
+    "AccountDetails": {
+      "description": "Enter Email id or Phone number that you would use for login",
+      "title": "Account Details",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "title": "Email Id or Mobile number"
         }
       }
     }
@@ -39,6 +100,8 @@
     "osComment": [],
     "privateFields": [],
     "signedFields": [],
+    "indexFields": [],
+    "uniqueIndexFields": [],
     "systemFields": [
       "osCreatedAt",
       "osUpdatedAt",
@@ -47,6 +110,12 @@
     ],
     "roles": ["admin"],
     "inviteRoles": ["admin"],
-    "ownershipAttributes": []
+    "ownershipAttributes": [
+      {
+        "email": "/accountDetails/userId",
+        "mobile": "/accountDetails/userId",
+        "userId": "/accountDetails/userId"
+      }
+    ]
   }
 }
