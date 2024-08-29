@@ -1,0 +1,79 @@
+{
+    "type": "opensaberLayoutSchema",
+    "version": "0.1",
+    "limit" : "15",
+    "tables": [
+        {
+            "teacher-attestation": {
+                "api": "/Teacher/claims",
+                "title": "TEACHER_ATTESTATIONS",
+                "fields": [
+                    {
+                        "name": "createdAt",
+                        "title": "SUBMITTED_DATE",
+                        "formate": "date"
+                    },
+                    {
+                        "name": "requestorName",
+                        "title": "NAME"
+                    },
+                    {   
+                        "custom": true,
+                        "title": "ACTION",
+                        "buttonText": "ATTEST",
+                        "type": "button",
+                        "redirectTo": "/Teacher/attestation/teacher-attestation/:id"
+                    }
+                ]
+            }
+        },
+        {
+            "institute-attestation": {
+                "api": "/Institute/claims",
+                "title": "INSTITUTE_ATTESTATIONS",
+                "fields": [
+                    {
+                        "name": "createdAt",
+                        "title": "SUBMITTED_DATE",
+                        "formate": "date"
+                    },
+                    {
+                        "name": "requestorName",
+                        "title": "NAME"
+                    },
+                    {   
+                        "custom": true,
+                        "title": "ACTION",
+                        "type": "button",
+                        "buttonText": "ATTEST",
+                        "redirectTo": "/Institute/attestation/institute-attestation/:id"
+                    }
+                ]
+            }
+        },
+        {
+            "board-cbse-attestation": {
+                "api": "/board-cbse/claims",
+                "title": "CBSE_BOARD_ATTESTATIONS",
+                "fields": [
+                    {
+                        "name": "createdAt",
+                        "title": "SUBMITTED_DATE",
+                        "formate": "date"
+                    },
+                    {
+                        "name": "requestorName",
+                        "title": "NAME"
+                    },
+                    {   
+                        "custom": true,
+                        "title": "ACTION",
+                        "type": "button",
+                        "buttonText": "ATTEST",
+                        "redirectTo": "/board-cbse/attestation/board-cbse-attestation/:id"
+                    }
+                ]
+            }
+        }
+    ]
+}

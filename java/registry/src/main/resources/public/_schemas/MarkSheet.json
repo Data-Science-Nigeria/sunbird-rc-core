@@ -1,0 +1,191 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "MarkSheet": {
+      "$ref": "#/definitions/MarkSheet"
+    }
+  },
+  "required": [
+    "MarkSheet"
+  ],
+  "title": "MarkSheet",
+  "definitions": {
+    "MarkSheet": {
+      "$id": "#/properties/MarkSheet",
+      "type": "object",
+      "title": "The MarkSheet Schema",
+      "required": [
+        "name",
+        "contact",
+        "dateofaward",
+        "validupto",
+        "nameofScheme",
+        "email"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Name"
+        },
+        "email": {
+          "type": "string",
+          "title": "Email"
+        },
+        "contact": {
+          "type": "string",
+          "title": "Contact"
+        },
+        "gender": {
+          "type": "string",
+          "title": "Gender"
+        },
+        "school": {
+          "type": "string",
+          "title": "School"
+        },
+        "academicYear": {
+          "type": "string",
+          "title": "Academic Year"
+        },
+        "rollNo": {
+          "type": "string",
+          "title": "Roll No"
+        },
+        "dateofaward": {
+          "type": "string",
+          "title": "Date Of Award",
+          "format": "date"
+        },
+        "validupto": {
+          "type": "string",
+          "title": "Valid Till",
+          "format": "date"
+        },
+        "nameofScheme": {
+          "type": "string",
+          "title": "Name of Scheme"
+        },
+        "english_studies": {
+          "type": "string",
+          "title": "English Studies"
+        },
+        "basic_science_technology": {
+          "type": "string",
+          "title": "Basic Science & Technology"
+        },
+        "cultural_creative_arts": {
+          "type": "string",
+          "title": "Cultural & Creative Arts"
+        },
+        "pre_vocational_studies": {
+          "type": "string",
+          "title": "Pre-Vocational Studies"
+        },
+        "business_studies": {
+          "type": "string",
+          "title": "Business Studies"
+        },
+        "french": {
+          "type": "string",
+          "title": "French"
+        },
+        "mathematics": {
+          "type": "string",
+          "title": "Mathematics"
+        },
+        "national_values": {
+          "type": "string",
+          "title": "National Values"
+        },
+        "nigerian_language": {
+          "type": "string",
+          "title": "Nigerian Language"
+        },
+        "christian_religious_knowledge": {
+          "type": "string",
+          "title": "Christian Religious Knowledge"
+        },
+        "arabic": {
+          "type": "string",
+          "title": "Arabic"
+        },
+        "islamic_religious_studies": {
+          "type": "string",
+          "title": "Islamic Religious Studies"
+        }
+      }
+    }
+  },
+  "_osConfig": {
+    "uniqueIndexFields": [
+      "contact"
+    ],
+    "privateFields": [],
+    "privateFieldConfig": "HASH",
+    "internalFieldConfig": "FULL",
+    "ownershipAttributes": [
+      {
+        "email": "/email",
+        "mobile": "/contact",
+        "userId": "/email"
+      }
+    ],
+    "systemFields": [
+      "osCreatedAt",
+      "osUpdatedAt",
+      "osCreatedBy",
+      "osUpdatedBy"
+    ],
+    "roles": [
+      "anonymous"
+    ],
+    "inviteRoles": [
+      "anonymous"
+    ],
+    "enableLogin": true,
+    "credentialTemplate": {
+      "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://gist.githubusercontent.com/arjunnemical/5314ecd020a10d04e48f6d19d70e70f1/raw/8e3b6c2cf3c26d5903d79f9a609db7658d9ff069/MarkSheet.json"
+      ],
+      "type": [
+        "VerifiableCredential"
+      ],
+      "issuanceDate": "{{osCreatedAt}}",
+      "credentialSubject": {
+        "type": "Student",
+        "name": "{{name}}",
+        "gender": "{{gender}}",
+        "school": "{{school}}",
+        "academicYear": "{{academicYear}}",
+        "rollNo": "{{rollNo}}",
+        "english_language": "{{english_language}}",
+        "basic_science": "{{basic_science}}",
+        "agricultural_science": "{{agricultural_science}}",
+        "business_studies": "{{business_studies}}",
+        "french": "{{french}}",
+        "mathematics": "{{mathematics}}",
+        "national_values": "{{national_values}}",
+        "physical_health_education": "{{physical_health_education}}",
+        "computer_studies": "{{computer_studies}}",
+        "civic_education": "{{civic_education}}",
+        "literature_in_english": "{{literature_in_english}}",
+        "nigerian_language": "{{nigerian_language}}",
+        "christian_religious_knowledge": "{{christian_religious_knowledge}}",
+        "arabic": "{{arabic}}",
+        "fine_art": "{{fine_art}}",
+        "islamic_religious_studies": "{{islamic_religious_studies}}"
+      },
+      "evidence": {
+        "type": "AwardDetails",
+        "nameofScheme": "{{nameofScheme}}",
+        "dateofaward": "{{dateofaward}}"
+      },
+      "issuer": "did:web:sunbirdrc.dev/vc/skill"
+    },
+    "certificateTemplates": {
+      "html": "minio://Issuer/1-15b69858-c36a-4112-b0ab-9cec4e009925/templates/documents/256d0f4a-ab70-437f-a58f-4f503b446ab6-MarkSheet.svg"
+    }
+  }
+}

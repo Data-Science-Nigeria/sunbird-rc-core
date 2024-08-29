@@ -1,50 +1,53 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
-  "title": "Verifier",
   "properties": {
     "Verifier": {
       "$ref": "#/definitions/Verifier"
     }
   },
+  "required": [
+    "Verifier"
+  ],
+  "title": "Verifier",
   "definitions": {
     "Verifier": {
       "$id": "#/properties/Verifier",
       "type": "object",
+      "title": "The Verifier Schema",
       "required": [
-        "verifierId",
-        "name",
-        "email",
-        "school",
-        "verifiedResults"
-      ],
-      "uniqueIndexFields": [
-        "verifierId",
-        "email"
+
       ],
       "properties": {
         "verifierId": {
+          "$id": "#/properties/verifierId",
           "type": "integer",
           "description": "Unique identifier for the verifier"
         },
         "name": {
+          "$id": "#/properties/name",
           "type": "string",
           "description": "Full name of the verifier"
         },
         "email": {
+          "$id": "#/properties/email",
           "type": "string",
+          "format": "email",
           "description": "Email address of the verifier"
         },
         "school": {
+          "$id": "#/properties/school",
           "type": "string",
           "description": "Name of the school where the verifier is employed"
         },
         "verifiedResults": {
+          "$id": "#/properties/verifiedResults",
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
               "resultId": {
+                "$ref": "Result.json#/definitions/Result",
                 "type": "integer",
                 "description": "Unique identifier for the verified result"
               },
