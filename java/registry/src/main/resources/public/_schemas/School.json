@@ -65,7 +65,7 @@
           "enum": [
             "Boys",
             "Girls",
-            "Co-ed"
+            "Mixed"
           ]
         },
         "schoolManagement": {
@@ -105,7 +105,7 @@
       "properties": {
         "medium": {
           "type": "string",
-          "enum": ["English", "Hindi", "Gujarati", "Malayalam", "Tamil"],
+          "enum": ["English", "Hausa", "Igbo", "Yoruba"],
           "title": "Medium of Education"
         },
         "board": {
