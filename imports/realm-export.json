@@ -1300,20 +1300,16 @@
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
         "http://localhost:4202/*",
-        "https://ndear.xiv.in/*",
         "http://20.198.64.128/*",
         "http://localhost:4200/*",
         "http://localhost:4202/*",
-        "http://localhost:4200/*",
-        "http://ndear.xiv.in/*"
+        "http://localhost:4200/*"
       ],
       "webOrigins": [
         "http://localhost:4202",
         "http://localhost:4202",
         "http://localhost:4200",
-        "https://ndear.xiv.in",
         "http://localhost:4200",
-        "http://ndear.xiv.in",
         "http://20.198.64.128"
       ],
       "notBefore": 0,
