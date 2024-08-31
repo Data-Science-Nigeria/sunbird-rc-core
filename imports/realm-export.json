@@ -48,8 +48,8 @@
     "realm": [
       {
         "id": "a4b21820-1b52-4b6a-851e-0a9955ead1f0",
-        "name": "default-roles-ndear",
-        "description": "${role_default-roles-ndear}",
+        "name": "default-roles-sunbird-rc",
+        "description": "${role_default-roles-sunbird-rc}",
         "composite": true,
         "composites": {
           "realm": [
@@ -468,7 +468,7 @@
       "attributes": {},
       "realmRoles": [
         "board-cbse",
-        "default-roles-ndear"
+        "default-roles-sunbird-rc"
       ],
       "clientRoles": {},
       "subGroups": []
@@ -556,8 +556,8 @@
   ],
   "defaultRole": {
     "id": "a4b21820-1b52-4b6a-851e-0a9955ead1f0",
-    "name": "default-roles-ndear",
-    "description": "${role_default-roles-ndear}",
+    "name": "default-roles-sunbird-rc",
+    "description": "${role_default-roles-sunbird-rc}",
     "composite": true,
     "clientRole": false,
     "containerId": "sunbird-rc"
@@ -641,7 +641,7 @@
       "disableableCredentialTypes": [],
       "requiredActions": [],
       "realmRoles": [
-        "default-roles-ndear"
+        "default-roles-sunbird-rc"
       ],
       "notBefore": 0,
       "groups": []
@@ -799,7 +799,7 @@
         "https://certi-verse.com/auth",
         "https://certi-verse.com/auth/realms/Sunbird-rc/account/*",
         "http://localhost:4200/*",
-        "http://ndear.xiv.in/*",
+        "http://sunbird-rc.xiv.in/*",
         "https://oauth.pstmn.io/v1/callback"
       ],
       "webOrigins": [
@@ -1198,7 +1198,7 @@
         "id.token.as.detached.signature": "false",
         "saml.assertion.signature": "false",
         "saml.encrypt": "false",
-        "login_theme": "ndear",
+        "login_theme": "sunbird-rc",
         "saml.server.signature": "false",
         "exclude.session.state.from.auth.response": "false",
         "saml.artifact.binding": "false",
@@ -1329,7 +1329,7 @@
         "saml.force.post.binding": "false",
         "saml.multivalued.roles": "false",
         "saml.encrypt": "false",
-        "login_theme": "ndear",
+        "login_theme": "sunbird-rc",
         "oauth2.device.authorization.grant.enabled": "false",
         "backchannel.logout.revoke.offline.tokens": "false",
         "saml.server.signature": "false",
@@ -2092,7 +2092,7 @@
     "strictTransportSecurity": "max-age=31536000; includeSubDomains"
   },
   "smtpServer": {},
-  "loginTheme": "ndear",
+  "loginTheme": "sunbird-rc",
   "eventsEnabled": false,
   "eventsListeners": [
     "jboss-logging"
