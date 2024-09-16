@@ -1300,7 +1300,7 @@
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
         "http://localhost:4202/*",
-        "http://20.198.64.128/*",
+        "http://34.227.25.135/*",
         "http://localhost:4200/*",
         "http://localhost:4202/*",
         "http://localhost:4200/*"
@@ -1310,7 +1310,7 @@
         "http://localhost:4202",
         "http://localhost:4200",
         "http://localhost:4200",
-        "http://20.198.64.128"
+        "http://34.227.25.135"
       ],
       "notBefore": 0,
       "bearerOnly": false,

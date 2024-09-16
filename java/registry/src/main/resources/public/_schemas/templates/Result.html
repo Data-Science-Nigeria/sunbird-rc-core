@@ -90,7 +90,7 @@
                 <th>GRADE</th>
             </tr>
             <tr>
-                <td>ENGLISH STUDIES</td>
+                <td>ENGLISH LANGUAGE</td>
                 <td>{{credentialSubject.english_studies}}</td>
                 <td>MATHEMATICS</td>
                 <td>{{credentialSubject.mathematics}}</td>
@@ -108,20 +108,21 @@
                 <td>{{credentialSubject.nigerian_language}}</td>
             </tr>
             <tr>
-                <td>Agricultural Science</td>
+                <td>AGRICULTURAL SCIENCE</td>
                 <td>{{credentialSubject.agricultural_science}}</td>
-                <td>CHRISTIAN RELIGIOUS KNOWLEDGE</td>
-                <td>{{credentialSubject.christian_religious_knowledge}}</td>
-            </tr>
-            <tr>
                 <td>BUSINESS STUDIES</td>
                 <td>{{credentialSubject.business_studies}}</td>
-                <td>ARABIC</td>
-                <td>{{credentialSubject.arabic}}</td>
+                </td>
             </tr>
             <tr>
                 <td>FRENCH</td>
                 <td>{{credentialSubject.french}}</td>
+                <td>ARABIC</td>
+                <td>{{credentialSubject.arabic}}</td>
+            </tr>
+            <tr>
+                <td>CHRISTIAN RELIGIOUS KNOWLEDGE</td>
+                <td>{{credentialSubject.christian_religious_knowledge}}
                 <td>ISLAMIC RELIGIOUS STUDIES</td>
                 <td>{{credentialSubject.islamic_religious_studies}}</td>
             </tr>
@@ -140,12 +141,12 @@
         </table>
     </div>
     <div class="certificate-footer">
-        <p>This Certificate is Awarded by the Ministry of Education Edo State of Nigeria.</p>
+        <p>This Certificate is Awarded by the Certi-Verse Educational Consult.</p>
         <p>Candidate No.: {{credentialSubject.rollNo}}</p>
         <div class="signature"><img
                 src='data:image/png;base64,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'
                 alt="Signature" class="placeholder" height="50"/>
-            <div>Hon. Commissioner for Education</div>
+            <div>Lead Instructor</div>
             <p>Generated On : {{dateFormat proof.created "dddd, MMMM Do YYYY"}}</p>
         </div>
         <center>

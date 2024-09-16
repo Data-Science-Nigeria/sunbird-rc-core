@@ -94,7 +94,7 @@
         "attestorPlugin": "did:internal:ClaimPluginActor?entity=board-cbse"
       }
     ],
-    "inviteRoles":["anonymous"],
+    "inviteRoles":["Teacher"],
     "enableLogin": true,
     "ownershipAttributes": [
       {

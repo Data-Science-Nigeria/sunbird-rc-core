@@ -129,7 +129,7 @@
           "items": {
             "type": "string",
             "enum": [
-            "Pre-Pri.",
+            "Pre-Primary",
             "BASIC ONE",
             "BASIC TWO",
             "BASIC THREE",

@@ -173,18 +173,23 @@
                 "type": "string",
                 "title": "Subject",
                 "enum": [
-                  "English Language",
-                  "Mathematics",
-                  "Nigerian Language",
-                  "Basic Science",
-                  "Agricultural Science",
+                  "ENGLISH LANGUAGE",
+                  "MATHEMATICS",
+                  "BASIC SCIENCE",
+                  "NATIONAL VALUES",
+                  "FINE ART",
                   "Physical Health Education",
-                  "Civic Education",
-                  "Literature in English",
-                  "Christian Religious Knowledge",
-                  "Islamic Religious Knowledge",
-                  "French",
-                  "Fine Art"
+                  "NIGERIAN LANGUAGE",
+                  "AGRICULTURAL SCIENCE",
+                  "CHRISTIAN RELIGIOUS KNOWLEDGE",
+                  "BUSINESS STUDIES",
+                  "ARABIC",
+                  "FRENCH",
+                  "ISLAMIC RELIGIOUS STUDIES",
+                  "PHYSICAL HEALTH EDUCATION",
+                  "COMPUTER STUDIES",
+                  "CIVIC EDUCATION",
+                  "LITERATURE IN ENGLISH"
                 ]
               },
               "grades": {
@@ -192,7 +197,7 @@
                 "type": "string",
                 "title": "Grades",
                 "enum": [
-                  "Pre-Pri.",
+                  "Pre-Primary",
                   "BASIC ONE",
                   "BASIC TWO",
                   "BASIC THREE",
@@ -224,6 +229,7 @@
           "$id": "#/properties/schoolOSID",
           "type": "string",
           "title": "School Osid"
+        }
         },
         "board": {
           "$id": "#/properties/board",

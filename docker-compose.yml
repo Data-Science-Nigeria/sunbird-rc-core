@@ -1,7 +1,19 @@
+x-redash-service: &redash-service
+  image: redash/redash:8.0.0.b32245
+  depends_on:
+    - db
+    - redis
+  env_file: ./.env
+  restart: always
+x-redash-environment: &redash-environment
+  REDASH_LOG_LEVEL: "INFO"
+  REDASH_REDIS_URL: "redis://redis:6379/0"
+  REDASH_DATABASE_URL: "postgresql://postgres:postgres@db/registry"
+  REDASH_RATELIMIT_ENABLED: "false"
+  REDASH_GUNICORN_TIMEOUT: 60
 services:
   es:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.8.23
-# Uncomment below lines and create es-data directory to persist elastic search data
     volumes:
       - ./${ES_DIR-es-data}:/usr/share/elasticsearch/data
     environment:
@@ -44,6 +56,7 @@ services:
     image: ghcr.io/sunbird-rc/sunbird-rc-core:${RELEASE_VERSION}
     volumes:
       - ./${SCHEMA_DIR-java/registry/src/main/resources/public/_schemas}:/home/sunbirdrc/config/public/_schemas
+      - ./${TEMPLATE_DIR-java/registry/src/main/resources/public/_schemas/templates}:/home/sunbirdrc/config/public/_schemas/templates
       - ./${VIEW_DIR-java/registry/src/main/resources/views}:/home/sunbirdrc/config/views/
     environment:
       - connectionInfo_uri=jdbc:postgresql://db:5432/registry
@@ -122,6 +135,9 @@ services:
       - kafka_bootstrap_address=kafka:9092
       - webhook_enabled=false
       - webhook_url=http://localhost:5001/api/v1/callback
+      - metrics_enabled=true
+      - metrics_topic=metrics
+      - event_enabled=true
       - redis_host=redis
       - redis_port=6379
       - manager_type=${MANAGER_TYPE-DefinitionsManager}
@@ -302,13 +318,75 @@ services:
       - MINIO_ROOT_PASSWORD=12345678
     command: server --address 0.0.0.0:9000 --console-address 0.0.0.0:9001 /data
     ports:
-      - '9003:9000'
-      - '9001:9001'
+      - '9008:9000'
+      - '9006:9001'
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:9000/minio/health/live']
       interval: 30s
       timeout: 20s
       retries: 10
+  certificate-signer:
+    image: ghcr.io/sunbird-rc/sunbird-rc-certificate-signer
+    environment:
+      - PORT=8079
+    ports:
+      - "8079:8079"
+    volumes:
+      - ./imports:/etc/signer
+    healthcheck:
+      test:
+        [ "CMD-SHELL", "curl -f http://localhost:8079/health || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+  certificate-api:
+    image: ghcr.io/sunbird-rc/sunbird-rc-certificate-api
+    volumes:
+      - ${PWD}/scripts:/scripts
+    entrypoint: ["sh", "/scripts/docker-entrypoint.sh"]
+    environment:
+      - PORT=8078
+    ports:
+      - "8078:8078"
+    healthcheck:
+      test:
+        [ "CMD-SHELL", "wget -nv -t1 --spider http://localhost:8078/health || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+  verification-ui:
+    image: tejashjl/verification
+    ports:
+      - "84:80"
+  server:
+    <<: *redash-service
+    command: server
+    ports:
+      - "5678:5000"
+    environment:
+      <<: *redash-environment
+      REDASH_WEB_WORKERS: 4
+  scheduler:
+    <<: *redash-service
+    command: scheduler
+    environment:
+      <<: *redash-environment
+      QUEUES: "celery"
+      WORKERS_COUNT: 1
+  scheduled_worker:
+    <<: *redash-service
+    command: worker
+    environment:
+      <<: *redash-environment
+      QUEUES: "scheduled_queries,schemas"
+      WORKERS_COUNT: 1
+  adhoc_worker:
+    <<: *redash-service
+    command: worker
+    environment:
+      <<: *redash-environment
+      QUEUES: "queries"
+      WORKERS_COUNT: 2
   notification-ms:
     image: ghcr.io/sunbird-rc/sunbird-rc-notification-service:${RELEASE_VERSION}
     ports:
@@ -385,35 +463,35 @@ services:
       interval: 30s
       timeout: 10s
       retries: 10
-  #nginx:
-  #  image: ghcr.io/sunbird-rc/sunbird-rc-nginx
-  #  ports:
-  #    - '83:83'
-  #  depends_on:
-  #    registry:
-  #      condition: service_healthy
-  #    context-proxy-service:
-  #      condition: service_started
-  #    public-key-service:
-  #      condition: service_started
-  #    keycloak:
-  #      condition: service_started
-  #    claim-ms:
-  #      condition: service_started
-  #    file-storage:
-  #      condition: service_started
-  #  healthcheck:
-  #    test: ['CMD', 'curl', '-f', 'localhost:80']
-  #    interval: 30s
-  #    timeout: 10s
-  #    retries: 10
+  nginx:
+    image: ghcr.io/sunbird-rc/sunbird-rc-nginx
+    ports:
+      - '83:80'
+    depends_on:
+      registry:
+        condition: service_healthy
+      context-proxy-service:
+        condition: service_started
+      public-key-service:
+        condition: service_started
+      keycloak:
+        condition: service_started
+      claim-ms:
+        condition: service_started
+      file-storage:
+        condition: service_started
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'localhost:80']
+      interval: 30s
+      timeout: 10s
+      retries: 10
   metrics:
     image: ghcr.io/sunbird-rc/sunbird-rc-metrics
     environment:
       CLICK_HOUSE_URL: clickhouse:9000
       CLICKHOUSE_DATABASE: default
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-      KAFKA_METRICS_TOPIC: events
+      KAFKA_METRICS_TOPIC: metrics
       REDIS_URL: redis:6379
     ports:
       - '8070:8070'
@@ -426,6 +504,23 @@ services:
     image: redis:latest
     ports:
       - '6379:6379'
+  digilocker_certificate_api:
+    image: sunbirdrc/sunbird-rc-digilocker-certificate-api
+    ports:
+      - "8089:8087"
+    environment:
+      KEYCLOAK_TOKEN_URL: https://certi-verse.com/auth/realms/sunbird-rc/protocol/openid-connect/token
+      KEYCLOAK_CLIENT_ID: admin-api
+      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_SECRET}
+      DIGILOCKER_HMAC_AUTHKEY: ${DIGILOCKER_HMAC_AUTHKEY}
+      DIGILOCKER_AUTH_KEYNAME: x-digilocker-hmac
+      REGISTRY_URL: https://certi-verse.com/registry/
+      TEMPLATE_MAPPER: '{"SACER":"html"}'
+      SCHEMA_MAPPER: '{"SACER":"ScholarshipForTopClassStudents"}'
+      LOG_LEVEL: info
+      MODE: release
+      HOST: 0.0.0.0
+      PORT: 8087
   digilocker-certificate-api:
     image: ghcr.io/sunbird-rc/sunbird-rc-digilocker-certificate-api
     volumes:
@@ -439,7 +534,7 @@ services:
       DIGILOCKER_AUTH_KEYNAME: x-digilocker-hmac
       PORT: 8087
   bulk_issuance:
-    image: ghcr.io/sunbird-rc/sunbird-rc-bulk-issuance
+    image: sunbirdrc/sunbird-rc-bulk-issuance:bulk
     ports:
       - '5665:5665'
     environment:
@@ -453,7 +548,7 @@ services:
   clickhouse:
     image: clickhouse/clickhouse-server:23.4.2.11-alpine
     ports:
-      - '9002:9000'
+      - '9005:9000'
     healthcheck:
       test:
         wget --no-verbose --tries=1 --spider http://localhost:8123/ping || exit

@@ -70,17 +70,21 @@
           "type": "string",
           "title": "English Studies"
         },
+        "mathematics": {
+          "type": "string",
+          "title": "Mathematics"
+        },
         "basic_science_technology": {
           "type": "string",
           "title": "Basic Science & Technology"
         },
-        "cultural_creative_arts": {
+        "national_values": {
           "type": "string",
-          "title": "Cultural & Creative Arts"
+          "title": "National Values"
         },
-        "pre_vocational_studies": {
+        "agricultural_science": {
           "type": "string",
-          "title": "Pre-Vocational Studies"
+          "title": "Agricultural Science"
         },
         "business_studies": {
           "type": "string",
@@ -90,13 +94,9 @@
           "type": "string",
           "title": "French"
         },
-        "mathematics": {
+        "arabic": {
           "type": "string",
-          "title": "Mathematics"
-        },
-        "national_values": {
-          "type": "string",
-          "title": "National Values"
+          "title": "Arabic"
         },
         "nigerian_language": {
           "type": "string",
@@ -106,13 +106,29 @@
           "type": "string",
           "title": "Christian Religious Knowledge"
         },
-        "arabic": {
+        "fine_art": {
           "type": "string",
-          "title": "Arabic"
+          "title": "Fine Art"
         },
         "islamic_religious_studies": {
           "type": "string",
           "title": "Islamic Religious Studies"
+        },
+        "physical_and_health_education": {
+          "type": "string",
+          "title": "Physical and Health Education"
+        },
+        "computer_studies": {
+          "type": "string",
+          "title": "Computer Studies"
+        },
+        "civic_education": {
+          "type": "string",
+          "title": "Civic Education"
+        },
+        "literature_in_english": {
+          "type": "string",
+          "title": "Literature in English"
         }
       }
     }
