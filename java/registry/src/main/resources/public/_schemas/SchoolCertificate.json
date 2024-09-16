@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "SchoolCertificate": {
+      "$ref": "#/definitions/SchoolCertificate"
+    }
+  },
+  "required": [
+    "SchoolCertificate"
+  ],
+  "title": "SchoolCertificate",
+  "definitions": {
+    "SchoolCertificate": {
+      "$id": "#/properties/SchoolCertificate",
+      "type": "object",
+      "title": "The School Certificate Schema",
+      "required": [
+        "name",
+        "certificateName"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Name of the Student"
+        },
+        "studentId": {
+          "type": "integer",
+          "title": "The ID of the Student"
+        },
+        "certificateName": {
+          "type": "string",
+          "enum": [
+            "Common Entrance",
+            "JSCE",
+            "Junior NECO",
+            "SSCE - WAEC",
+            "SSCE - NECO",
+            "SSCE - NABTEB",
+            "NCE",
+            "OND",
+            "HND",
+            "B.Sc",
+            "B.Ed",
+            "B.Tech",
+            "MBBS",
+            "B.A",
+            "LLB",
+            "PGDE",
+            "M.Sc",
+            "M.Tech",
+            "MBA",
+            "M.Ed",
+            "M.Ph",
+            "M.Phil",
+            "PhD."
+          ],
+          "title": "The name of the specific certificate to be issued to the student"
+        },
+        "academicYear": {
+          "type": "string",
+          "title": "Academic Year"
+        },
+        "dateofaward": {
+          "type": "string",
+          "title": "Date Of Award",
+          "format": "date"
+        }
+      }
+    }
+  },
+  "_osConfig": {
+    "uniqueIndexFields": [
+      "name",
+      "certificateName",
+      "academicYear"
+    ],
+    "ownershipAttributes": [],
+    "roles": [],
+    "inviteRoles": [
+      "anonymous"
+    ],
+    "enableLogin": false,
+    "credentialTemplate": {
+      "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://gist.githubusercontent.com/dileepbapat/eb932596a70f75016411cc871113a789/raw/498e5af1d94784f114b32c1ab827f951a8a24def/skill"
+      ],
+      "type": [
+        "VerifiableCredential"
+      ],
+      "issuanceDate": "2021-08-27T10:57:57.237Z",
+      "credentialSubject": {
+        "type": "Person",
+        "name": "{{name}}",
+        "certificateName": "{{typeOfCertificate}}",
+        "academicYear": "{{academicYear}}",
+        "dateofaward": "{{dateofaward}}"
+      },
+      "issuer": "did:web:sunbirdrc.dev/vc/skill"
+    }
+  }
+}
